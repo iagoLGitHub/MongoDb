@@ -16,18 +16,34 @@ public class Cliente {
     private String apellidos;
     @BsonProperty(value = "email")
     private String email;
+
+    @BsonProperty(value ="tienda")
+    private Tienda tienda;
     @BsonProperty(value = "facturas")
-    private List<Factura> facturas;
+    private List<Factura> facturas= new ArrayList<>();
 
     public Cliente() {
         facturas = new ArrayList<>();
+    }
+
+    public Cliente(ObjectId id, String nombre, String apellidos, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
     }
 
     public Cliente(String nombre, String apellidos, String email) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        facturas = new ArrayList<>();
+    }
+
+    public Cliente(String nombre, String apellidos, String email, Factura factura) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.facturas.add(factura);
     }
 
     public ObjectId getId() {
@@ -68,6 +84,17 @@ public class Cliente {
     @BsonProperty(value = "facturas")
     public List<Factura> getFacturas() {
         return facturas;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", email='" + email + '\'' +
+                ", facturas=" + facturas +
+                '}';
     }
 
     public void agregarFactura(Factura factura) {

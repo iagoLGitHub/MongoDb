@@ -1,13 +1,13 @@
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import controller.ControllerMenuPrincipal;
 
 public class Main {
 
 
     public static void main(String[]args){
 
-        MongoClient clienteMongo=new MongoClient("localhost");
-        MongoDatabase db=clienteMongo.getDatabase()
+        ControllerMenuPrincipal menu=new ControllerMenuPrincipal();
+        menu.controllerPrincipal();
+
 
     }
 }
