@@ -69,8 +69,10 @@ public class RepositoryFactura {
 
     public void buscarFacturaFechainferior(int fecha){
         RepositoryClient c=new RepositoryClient();
+
         Document filter = new Document();
         filter.append("facturas", new Document("$lt", fecha));
+
 
 
         // Realización de la búsqueda
@@ -78,7 +80,7 @@ public class RepositoryFactura {
         System.out.println(result);
         for (Document doc : result) {
             System.out.println(doc);
-            System.out.println(result);
+
         }
         // Imprimir los resultados en consola
 
