@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import org.bson.types.ObjectId;
 import org.example.crud.RepositoryClient;
 import org.example.model.Cliente;
+import org.example.model.Tienda;
 import org.example.view.MenuCliente;
 
 import java.util.Scanner;
@@ -61,9 +63,14 @@ public class ControllerMenuCliente {
                     String apellidos = sc.nextLine();
                     System.out.println("Introduce Email");
                     String email = sc.nextLine();
+                    System.out.println("nombre de tienda");
+                    String nombreTienda = sc.nextLine();
+                    System.out.println("Direccion");
+                    String direccion = sc.nextLine();
                     Cliente client = new Cliente(nombre, apellidos, email);
+                    Tienda tienda=new Tienda(nombreTienda,direccion);
                     cliente = new RepositoryClient();
-                    cliente.insertarCliente(client);
+                    cliente.insertarCliente(client,tienda);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -71,15 +78,15 @@ public class ControllerMenuCliente {
 
             case 4:
                 try {
-                    System.out.println("Introduce el nombre del cliente que quieres modificar");
                     sc.nextLine();
+                    System.out.println("Introduce el nombre del cliente que quieres modificar");
+
                     cliente = new RepositoryClient();
                     String nombre = sc.nextLine();
                     Cliente client;
                     client= cliente.buscarCliente(nombre);
                     if (client!= null) {
                         System.out.println("Introduce nombre");
-                        sc.nextLine();
                         nombre = sc.nextLine();
                         System.out.println("Introduce apellidos");
                         String apellidos = sc.nextLine();

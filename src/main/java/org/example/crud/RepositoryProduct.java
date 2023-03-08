@@ -21,8 +21,4 @@ public class RepositoryProduct {
         }
     }
 
-
-    public void insertarJson(Document document){
-        lista.insertOne(document);
-    }
 }

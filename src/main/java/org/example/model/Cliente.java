@@ -26,6 +26,7 @@ public class Cliente {
         facturas = new ArrayList<>();
     }
 
+
     public Cliente(ObjectId id, String nombre, String apellidos, String email) {
         this.id = id;
         this.nombre = nombre;
@@ -38,13 +39,19 @@ public class Cliente {
         this.apellidos = apellidos;
         this.email = email;
     }
-
+    public Cliente(String nombre, String apellidos, String email,Tienda tienda) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.tienda=tienda;
+    }
     public Cliente(String nombre, String apellidos, String email, Factura factura) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.facturas.add(factura);
     }
+
 
     public ObjectId getId() {
         return id;
@@ -86,6 +93,7 @@ public class Cliente {
         return facturas;
     }
 
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -93,7 +101,7 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
-                ", facturas=" + facturas +
+                ", tienda=" + tienda +
                 '}';
     }
 

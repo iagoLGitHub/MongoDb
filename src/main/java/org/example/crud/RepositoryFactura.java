@@ -3,7 +3,9 @@ package org.example.crud;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
+import org.bson.conversions.Bson;
 import org.example.model.Cliente;
 import org.example.model.Factura;
 import org.bson.Document;
@@ -70,14 +72,11 @@ public class RepositoryFactura {
     public void buscarFacturaFechainferior(int fecha){
         RepositoryClient c=new RepositoryClient();
 
-        Document filter = new Document();
-        filter.append("facturas", new Document("$lt", fecha));
-
-
+        Bson filtro= Filters.lt("fecha",fecha);
 
         // Realización de la búsqueda
-        List<Document> result = c.lista.find(filter).into(new ArrayList<Document>());
-        System.out.println(result);
+        List<Document> result = listaFacturas.find(filtro).into(new ArrayList<Document>());
+
         for (Document doc : result) {
             System.out.println(doc);
 
@@ -91,26 +90,26 @@ public class RepositoryFactura {
     public void buscarFacturaFechaSuperior(int fecha){
         RepositoryClient c=new RepositoryClient();
         Document filter = new Document();
+        Bson filtro= Filters.gt("fecha",fecha);
 
-        filter.append("facturas.fecha", new Document("$gte", fecha));
 
         // Realización de la búsqueda
-        List<Document> result = c.lista.find(filter).into(new ArrayList<>());
+        List<Document> result = listaFacturas.find(filtro).into(new ArrayList<>());
 
-        // Imprimir los resultados en consola
-        System.out.println(result);
+        for (Document doc : result) {
+            System.out.println(doc);
+        }
 
     }
 
     public void crearFacturaCliente(Cliente cliente, Factura factura){
         RepositoryClient c=new RepositoryClient();
-
+        ObjectId id=new ObjectId();
         Document dFactura = new Document("codigo", factura.getCodigo())
                 .append("fecha", factura.getYear())
                 .append("descripcion",factura.getDescripcion())
                 .append("observacion", factura.getObservacion());
-
-
+        listaFacturas.insertOne(dFactura);
 
 
         // Buscar el cliente por su ID y agregar la factura a su lista de facturas

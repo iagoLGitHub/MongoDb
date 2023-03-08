@@ -11,6 +11,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.example.model.Cliente;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.example.model.Tienda;
 
 public class RepositoryClient {
 
@@ -33,6 +34,11 @@ public class RepositoryClient {
         System.out.println();
     }
 
+    /**
+     * Busca el cliente por nombre pasado como parametro
+     * @param nombre
+     * @return
+     */
     public Cliente buscarCliente(String nombre) {
 
         Document query = new Document("nombre", nombre);
@@ -61,15 +67,18 @@ public class RepositoryClient {
     }
 
     /**
-     * Crea un cliente
+     * Inserta un cliente en la base de datos
      * @param cliente
      */
-    public void insertarCliente(Cliente cliente) {
+    public void insertarCliente(Cliente cliente, Tienda tienda) {
         try {
-
+            ObjectId id=new ObjectId();
             Document documento = new Document("nombre", cliente.getNombre())
                     .append("apellidos", cliente.getApellidos())
-                    .append("email", cliente.getEmail());
+                    .append("email", cliente.getEmail())
+                    .append("tienda", new Document("id", id)
+                            .append("nombre_tienda", tienda.getNombre())
+                            .append("direccion_tienda", tienda.getDireccion()));
             System.out.println(documento.toJson());
             lista.insertOne(documento);
 
@@ -80,7 +89,8 @@ public class RepositoryClient {
     }
 
     /**
-     * Modifica un cliente
+     * Modifica un cliente, primero comprueba si existe, si es asi te trae el cliente de vuelta, y se reescriben los
+     * datos
      * @param cliente
      */
     public void modificarCliente(Cliente cliente) {
@@ -106,7 +116,7 @@ public class RepositoryClient {
     }
 
     /**
-     * Elimina el cliente dandole su nombre
+     * Elimina el cliente pasandole su nombre como parametro
      * @param nombre
      */
     public void eliminarCliente(String nombre){

@@ -16,9 +16,8 @@ public class MenuFactura {
         System.out.println("Menu buscar Factura");
         System.out.println("1.Mostrar lista de facturas de un cliente");
         System.out.println("2.Mostrar cantidad de facturas de un cliente");
-        System.out.println("3.Mostrar facturas con fecha mayor a: ");
-        System.out.println("4.Mostrar facturas con fecha menor a: ");
-
+        System.out.println("3.Mostrar todas las facturas con fecha mayor a: ");
+        System.out.println("4.Mostrar todas las facturas con fecha menor a: ");
 
     }
 }
