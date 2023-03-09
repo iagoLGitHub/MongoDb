@@ -3,6 +3,7 @@ package org.example.crud;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.conversions.Bson;
@@ -71,11 +72,11 @@ public class RepositoryFactura {
 
     public void buscarFacturaFechainferior(int fecha){
         RepositoryClient c=new RepositoryClient();
+        Bson filtro=Filters.lt("fecha",fecha);
 
-        Bson filtro= Filters.lt("fecha",fecha);
 
         // Realización de la búsqueda
-        List<Document> result = listaFacturas.find(filtro).into(new ArrayList<Document>());
+        List<Document> result = c.lista.find(filtro).into(new ArrayList<Document>());
 
         for (Document doc : result) {
             System.out.println(doc);
@@ -89,12 +90,14 @@ public class RepositoryFactura {
     }
     public void buscarFacturaFechaSuperior(int fecha){
         RepositoryClient c=new RepositoryClient();
-        Document filter = new Document();
+
+
         Bson filtro= Filters.gt("fecha",fecha);
 
 
+
         // Realización de la búsqueda
-        List<Document> result = listaFacturas.find(filtro).into(new ArrayList<>());
+        List<Document> result = c.lista.find(filtro).into(new ArrayList<>());
 
         for (Document doc : result) {
             System.out.println(doc);
@@ -109,7 +112,7 @@ public class RepositoryFactura {
                 .append("fecha", factura.getYear())
                 .append("descripcion",factura.getDescripcion())
                 .append("observacion", factura.getObservacion());
-        listaFacturas.insertOne(dFactura);
+
 
 
         // Buscar el cliente por su ID y agregar la factura a su lista de facturas
